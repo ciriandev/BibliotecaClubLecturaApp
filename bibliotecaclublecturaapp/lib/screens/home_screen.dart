@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'libros_screen.dart'; // Asegúrate de importar la pantalla de libros
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -13,7 +14,11 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
-                // Navegar a la pantalla de Libros (lo implementaremos más adelante)
+                // Navegar a la pantalla de Libros
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LibrosScreen()),
+                );
               },
               child: Text('Libros'),
             ),
