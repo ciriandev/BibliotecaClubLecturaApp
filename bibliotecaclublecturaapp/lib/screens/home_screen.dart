@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'libros_screen.dart'; // Asegúrate de importar la pantalla de libros
+import 'libros_screen.dart';
+import 'usuarios_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -24,7 +25,11 @@ class HomeScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                // Navegar a la pantalla de Usuarios (lo implementaremos más adelante)
+                // Navegar a la pantalla de Usuarios
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => UsuariosScreen()),
+                );
               },
               child: Text('Usuarios'),
             ),
