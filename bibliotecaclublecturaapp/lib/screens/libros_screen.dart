@@ -1,8 +1,8 @@
-import 'package:bibliotecaclublecturaapp/models/libro.dart';
 import 'package:flutter/material.dart';
+import 'package:bibliotecaclublecturaapp/models/libro.dart';
 import 'package:bibliotecaclublecturaapp/services/libro_service.dart';
-
 import 'package:bibliotecaclublecturaapp/screens/libro_detalle_screen.dart';
+import 'package:bibliotecaclublecturaapp/widget/add_libro_form.dart'; // Importa el formulario
 
 class LibrosScreen extends StatefulWidget {
   @override
@@ -16,6 +16,13 @@ class _LibrosScreenState extends State<LibrosScreen> {
   void initState() {
     super.initState();
     futureLibros = LibroService().fetchLibros();
+  }
+
+  // Método para refrescar la lista de libros después de añadir uno nuevo
+  void _refreshLibros() {
+    setState(() {
+      futureLibros = LibroService().fetchLibros();
+    });
   }
 
   @override
@@ -52,13 +59,29 @@ class _LibrosScreenState extends State<LibrosScreen> {
                       MaterialPageRoute(
                         builder: (context) => LibroDetalleScreen(libro: libro),
                       ),
-                    );
+                    ).then((_) {
+                      _refreshLibros(); // Refrescar después de volver
+                    });
                   },
+
                 );
               },
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Dialog(
+                child: AddBookForm(),
+              );
+            },
+          );
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
