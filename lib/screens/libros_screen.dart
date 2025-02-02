@@ -53,15 +53,14 @@ class _LibrosScreenState extends State<LibrosScreen> {
                   ),
                   title: Text(libro.titulo),
                   subtitle: Text('Autor: ${libro.autor}'),
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => LibroDetalleScreen(libro: libro),
                       ),
-                    ).then((_) {
-                      _refreshLibros(); // Refrescar después de volver
-                    });
+                    );
+                    _refreshLibros();
                   },
 
                 );
@@ -76,7 +75,12 @@ class _LibrosScreenState extends State<LibrosScreen> {
             context: context,
             builder: (BuildContext context) {
               return Dialog(
-                child: AddBookForm(),
+                child: AddBookForm(
+                  onBookAdded: () {
+                    print("Libro agregado correctamente.");
+                    setState(() {});
+                  },
+                ),
               );
             },
           );
